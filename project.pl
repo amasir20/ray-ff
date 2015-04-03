@@ -23,3 +23,18 @@ successor(A,S) :- reverse(A,R),
 
 next([0|R],[1|R]).
 next([1|R],[0|S]) :- next(R,S).
+
+find_answer(N,_,_,N) :- member(N,[0,1]).
+
+find_answer(X,Vars,A,Answer) :- atom(X),
+                             lookup(X,Vars,A,Answer).
+							 
+find_answer(X and Y,Vars,A,Answer) :- find_answer(X,Vars,A,ValueX),
+                                   find_answer(Y,Vars,A,ValueY),
+                                   logic_and(ValueX,ValueY,Answer).
+								   
+find_answer(X or Y,Vars,A,Answer) :-  find_answer(X,Vars,A,ValueX),
+                                   find_answer(Y,Vars,A,ValueY),
+                                   logic_or(ValueX,ValueY,Answer).
+find_answer(not X,Vars,A,Answer) :-   find_answer(X,Vars,A,ValueX),
+                                   logic_not(ValueX,Answer).
