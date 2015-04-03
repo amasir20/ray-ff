@@ -56,3 +56,21 @@ logic_not(1,0).
 
 lookup(X,[X|_],[V|_],V).
 lookup(X,[_|Vars],[_|A],V) :- lookup(X,Vars,A,V).
+
+ray(Exp) :- search_variable(Exp,[],V),
+			reverse(V,Vars),
+			initial_assign(Vars,A),
+			write('  '), 
+			write(Vars), 
+			write('    '), 
+			write(Exp), nl,
+			write('*****************************************'), nl,
+			write_row(Exp,Vars,A),
+			write('*****************************************'), nl.
+
+write_row(Exp,Vars,A) :- 	write('  '), 
+							write(A), 
+							write('        '), 
+							find_answer(Exp,Vars,A,V), 
+							write(V), nl,
+							(successor(A,N) -> write_row(Exp,Vars,N) ; true).
