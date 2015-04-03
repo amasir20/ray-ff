@@ -38,3 +38,21 @@ find_answer(X or Y,Vars,A,Answer) :-  find_answer(X,Vars,A,ValueX),
                                    logic_or(ValueX,ValueY,Answer).
 find_answer(not X,Vars,A,Answer) :-   find_answer(X,Vars,A,ValueX),
                                    logic_not(ValueX,Answer).
+								   
+								   
+logic_and(0,0,0). 
+logic_and(0,1,0). 
+logic_and(1,0,0).  
+logic_and(1,1,1). 
+    
+logic_or(0,0,0). 
+logic_or(0,1,1).
+logic_or(1,0,1).
+logic_or(1,1,1).
+
+     
+logic_not(0,1).      
+logic_not(1,0).
+
+lookup(X,[X|_],[V|_],V).
+lookup(X,[_|Vars],[_|A],V) :- lookup(X,Vars,A,V).
